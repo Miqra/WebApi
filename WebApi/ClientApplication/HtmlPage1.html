@@ -2,9 +2,9 @@
 <html>
 <head>
     <title></title>
-	<meta charset="utf-8" />
+    <meta charset="utf-8" />
     <script src="Scripts/jquery-1.10.2.js"></script>
-    
+
     <script type="text/javascript">
         $(document).ready(function () {
             var Employees = $('#ulEmployees');
@@ -12,11 +12,11 @@
             {
                 $.ajax({
                     type: 'GET',
-                    url: 'api/empoyee/',
+                    url: 'http://localhost:2854/api/empoyee',
                     dataType: 'jsonp',
                     success: function (data)
                     {
-                       /* ulEmployees.empty();*/
+                      /*  ulEmployees.empty();*/
                         $.each(data, function (index,val) {
                             var fullName = val.FIRSTNAME + ' ' + val.LASTNAME;
                             ulEmployees.append('<li>'+fullName+'</li>');
@@ -34,8 +34,8 @@
 </head>
 
 <body>
-    <input type="button" id ="btn" value="Get All Employees" />
-    <input type="button" id="btnClear"  value="Clear" />
-   <ul id="ulEmployees"></ul>
+    <input type="button" id="btn" value="Get All Employees" />
+    <input type="button" id="btnClear" value="Clear" />
+    <ul id="ulEmployees"></ul>
 </body>
 </html>
