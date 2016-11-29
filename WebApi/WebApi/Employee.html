@@ -13,13 +13,13 @@
                 $.ajax({
                     type: 'GET',
                     url: 'api/empoyee/',
-                    dataType: 'jsonp',
+                    dataType: 'json',
                     success: function (data)
                     {
                        /* ulEmployees.empty();*/
                         $.each(data, function (index,val) {
                             var fullName = val.FIRSTNAME + ' ' + val.LASTNAME;
-                            ulEmployees.append('<li>'+fullName+'</li>');
+                            Employees.append('<li>' + fullName + '</li>');
                         });
                     }
 
@@ -27,7 +27,7 @@
             });
 
             $('btnClear').click(function () {
-                ulEmployees.empty();
+                Employees.empty();
             });
         });
     </script>

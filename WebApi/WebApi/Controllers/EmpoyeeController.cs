@@ -5,29 +5,34 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace WebApi.Controllers
 {
+    [EnableCorsAttribute("*", "*", "*")] //yalnizca bu controller uchun ishleyir
+   // [RequireHttps] //ancaq bu controller uchun http i active edirsen
     public class EmpoyeeController : ApiController
     {
 
         //ya Get olmalidi yada GetSomething get ile bashlanan method adi olmalidi yada [HttpGet] yazmaq lazimdi
-        public HttpResponseMessage Get(string gender="All")
+        // [DisableCors]
+       // [RequireHttps] yalnizca bu method uchun
+        public HttpResponseMessage Get(string gender = "All")
         {
             using (EmployeeEntities entities = new EmployeeEntities())
             {
                 switch (gender.ToLower())
                 {
                     case "all":
-                        return Request.CreateResponse(HttpStatusCode.OK,entities.EMPLOYEE.ToList());
+                        return Request.CreateResponse(HttpStatusCode.OK, entities.EMPLOYEE.ToList());
                     case "male":
-                        return Request.CreateResponse(HttpStatusCode.OK, entities.EMPLOYEE.Where(x=>x.GENDER.ToLower()=="male").ToList());
+                        return Request.CreateResponse(HttpStatusCode.OK, entities.EMPLOYEE.Where(x => x.GENDER.ToLower() == "male").ToList());
                     case "female":
                         return Request.CreateResponse(HttpStatusCode.OK, entities.EMPLOYEE.Where(x => x.GENDER.ToLower() == "female").ToList());
                     default:
-                       return Request.CreateErrorResponse(HttpStatusCode.BadRequest,"Value for gende must be male or female");
+                        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Value for gende must be male or female");
                 }
-               
+
             }
         }
         [HttpGet]
@@ -93,7 +98,7 @@ namespace WebApi.Controllers
             catch (Exception ex)
             {
 
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest,ex);
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
         }
 
@@ -111,7 +116,7 @@ namespace WebApi.Controllers
                         entity.GENDER = employee.GENDER;
                         entity.SALARY = employee.SALARY;
                         entities.SaveChanges();
-                        return Request.CreateResponse(HttpStatusCode.OK,entity);
+                        return Request.CreateResponse(HttpStatusCode.OK, entity);
                     }
                     else
                     {
@@ -123,9 +128,9 @@ namespace WebApi.Controllers
             catch (Exception ex)
             {
 
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest,ex);
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
-           
+
         }
     }
 }

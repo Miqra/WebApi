@@ -8,6 +8,7 @@ using Newtonsoft.Json.Serialization;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using WebApiContrib.Formatting.Jsonp;
+using System.Web.Http.Cors;
 
 namespace WebApi
 {
@@ -41,10 +42,14 @@ namespace WebApi
                 defaults: new { id = RouteParameter.Optional }
             );
 
-          //  config.Formatters.Add(new CustomerJsonFormatter());
+            //  config.Formatters.Add(new CustomerJsonFormatter());
 
-            var jsonpFormatter = new JsonpMediaTypeFormatter(config.Formatters.JsonFormatter);
-            config.Formatters.Insert(0, jsonpFormatter);
+            //var jsonpFormatter = new JsonpMediaTypeFormatter(config.Formatters.JsonFormatter);
+            //config.Formatters.Insert(0, jsonpFormatter);
+            //eger * dursa butun websitelere 
+            EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*");
+            config.EnableCors();
+            config.Filters.Add(new RequireHttpsAttribute());
         }
     }
 }
