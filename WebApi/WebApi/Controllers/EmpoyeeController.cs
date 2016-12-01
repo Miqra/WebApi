@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -17,8 +18,10 @@ namespace WebApi.Controllers
         //ya Get olmalidi yada GetSomething get ile bashlanan method adi olmalidi yada [HttpGet] yazmaq lazimdi
         // [DisableCors]
        // [RequireHttps] yalnizca bu method uchun
+       [BasicAuthentication]
         public HttpResponseMessage Get(string gender = "All")
         {
+            string username = Thread.CurrentPrincipal.Identity.Name;
             using (EmployeeEntities entities = new EmployeeEntities())
             {
                 switch (gender.ToLower())
