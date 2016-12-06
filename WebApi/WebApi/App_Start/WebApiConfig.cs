@@ -49,7 +49,7 @@ namespace WebApi
             //eger * dursa butun websitelere 
             EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors();
-            config.Filters.Add(new RequireHttpsAttribute());
+           // config.Filters.Add(new RequireHttpsAttribute());
         }
     }
 }
